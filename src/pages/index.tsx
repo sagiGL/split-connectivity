@@ -3,7 +3,7 @@ import { io, Socket } from "socket.io-client";
 
 import '../styles/globals.scss';
 import Container from "@/components/Container";
-import SphereDisplay from "@/components/SphereDisplay";
+import SphereDisplay from "@/components/sphere/SphereDisplay";
 
 interface Position {
   x: number;
