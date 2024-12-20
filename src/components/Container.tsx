@@ -5,7 +5,7 @@ const Container = styled.div`
   position: relative;
   height: 100vh;
   overflow: hidden;
-  background-color: #f4f4f4;
+  background-color: '$background';
 `;
 
 export default Container;
