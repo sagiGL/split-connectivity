@@ -1,0 +1,61 @@
+// Variables
+$primary: #3498db;
+$secondary: #2ecc71;
+$font-stack: 'Arial', sans-serif;
+$background: #222;
+$text: #DDD;
+
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Global Styles
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: $background;
+  font-family: $font-stack;
+  color: $text;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: $text;
+  margin-bottom: 1rem;
+}
+
+a {
+  color: $primary;
+  text-decoration: none;
+
+  &:hover {
+    color: $secondary;
+  }
+}
+
+button {
+  @include flex-center;
+  background: $primary;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+
+  &:hover {
+    background: $secondary;
+  }
+}
+
+// Utility Classes
+.mt-1 { margin-top: 1rem; }
+.mb-1 { margin-bottom: 1rem; }
+.p-1 { padding: 1rem; }
+.text-center { text-align: center; }
