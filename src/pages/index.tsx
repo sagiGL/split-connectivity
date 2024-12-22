@@ -91,10 +91,9 @@ export default function Home() {
 
   return (
     <Container>
-      {
-        // TODO: Only show the button on the main window first window which was opened
-        <StickyButton onClick={openNewWindow}>Open New Window</StickyButton>
-      }
+      <StickyButton className="new-window-btn" onClick={openNewWindow}>
+        Open New Window
+      </StickyButton>
       <SphereDisplay windows={windows} position={position} socket={socket} />
     </Container>
   );
