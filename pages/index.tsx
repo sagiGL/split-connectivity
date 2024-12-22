@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
 
 import '../styles/globals.scss';
@@ -23,6 +23,7 @@ const socket: Socket = io('http://localhost:3001');
 
 export default function Home() {
   const [windows, setWindows] = useState<WindowData[]>([]);
+  const [myId, setMyId] = useState<string | null>();
   const [position, setPosition] = useState<Position>({
     x: 0,
     y: 0,
@@ -54,6 +55,7 @@ export default function Home() {
     });
 
     socket.on('store-window-data', ({ id, color }) => {
+      setMyId(id);
       localStorage.setItem('windowId', id);
       localStorage.setItem('windowColor', color);
     });
@@ -86,14 +88,11 @@ export default function Home() {
 
   const openNewWindow = () => {
     window.open(window.location.href, '_blank', 'width=600,height=400');
-    console.log(windows);
   };
 
   return (
     <Container>
-      <StickyButton className="new-window-btn" onClick={openNewWindow}>
-        Open New Window
-      </StickyButton>
+      <StickyButton onClick={openNewWindow}>Open New Window</StickyButton>
       <SphereDisplay windows={windows} position={position} socket={socket} />
     </Container>
   );

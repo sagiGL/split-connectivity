@@ -1,21 +1,28 @@
-const { Server } = require("socket.io");
+const { Server } = require('socket.io');
 
 const io = new Server(3001, {
   cors: {
-    origin: "*",
+    origin: '*',
   },
 });
 
 let windows = [];
 
-function generateRandomColor() {
-  const letters = '0123456789ABCDEF';
-  let color = '#';
-  for (let i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-}
+const usedColors = new Set();
+
+const generateRandomColor = () => {
+  const saturation = 50; // Low saturation for pastel colors
+  const lightness = 60; // High lightness for pastel colors
+  let hue;
+
+  do {
+    hue = Math.floor(Math.random() * 360);
+  } while (usedColors.has(hue));
+
+  usedColors.add(hue);
+
+  return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+};
 
 function isPositionAlmostSame(pos1, pos2) {
   const threshold = 10; // Adjust the threshold as needed
@@ -27,47 +34,47 @@ function isPositionAlmostSame(pos1, pos2) {
   );
 }
 
-io.on("connection", (socket) => {
-  console.log("A new window connected:", socket.id);
+io.on('connection', (socket) => {
+  console.log('A new window connected:', socket.id);
 
   // Register a new window
-  socket.on("register", ({ position, id, color }) => {
-    let existingWindow = windows.find((w) => w.id === id && isPositionAlmostSame(w.position, position));
+  socket.on('register', ({ position, id, color }) => {
+    let existingWindow = windows.find(
+      (w) => w.id === id && isPositionAlmostSame(w.position, position),
+    );
     if (existingWindow) {
-      console.log("Window reconnected:", socket.id);
+      console.log('Window reconnected:', socket.id);
       socket.id = existingWindow.id;
       existingWindow.position = position;
     } else {
-      console.log("New window connected:", socket.id);
+      console.log('New window connected:', socket.id);
       const newColor = color || generateRandomColor();
       windows.push({ id: socket.id, position, color: newColor });
       if (id) {
-        socket.emit("store-window-data", { id: socket.id, color: newColor });
+        socket.emit('store-window-data', { id: socket.id, color: newColor });
       }
     }
-    io.emit("update-windows", windows); // Broadcast to all windows
+    io.emit('update-windows', windows); // Broadcast to all windows
   });
 
   // Update window position
-  socket.on("update-position", (position) => {
-    windows = windows.map((w) =>
-      w.id === socket.id ? { ...w, position } : w
-    );
-    io.emit("update-windows", windows); // Broadcast to all windows
+  socket.on('update-position', (position) => {
+    windows = windows.map((w) => (w.id === socket.id ? { ...w, position } : w));
+    io.emit('update-windows', windows); // Broadcast to all windows
   });
 
   // Handle window disconnect
-  socket.on("disconnect", () => {
-    console.log("Window disconnected:", socket.id);
+  socket.on('disconnect', () => {
+    console.log('Window disconnected:', socket.id);
     const disconnectTimeout = setTimeout(() => {
       windows = windows.filter((w) => w.id !== socket.id);
-      io.emit("update-windows", windows); // Broadcast to all windows
+      io.emit('update-windows', windows); // Broadcast to all windows
     }, 100);
 
-    socket.on("reconnect", () => {
+    socket.on('reconnect', () => {
       clearTimeout(disconnectTimeout);
     });
   });
 });
 
-console.log("Socket.IO server running on port 3001");
+console.log('Socket.IO server running on port 3001');

@@ -32,13 +32,13 @@ const SphereDisplay: React.FC<ISphereDisplay> = ({
     return Math.sqrt(dx * dx + dy * dy);
   };
 
-  const isOverlapping = (win1: Position, win2: Position): boolean => {
-    const xOverlap =
-      win1.x < win2.x + win2.width && win1.x + win1.width > win2.x;
-    const yOverlap =
-      win1.y < win2.y + win2.height && win1.y + win1.height > win2.y;
-    return xOverlap && yOverlap;
-  };
+  // const isOverlapping = (win1: Position, win2: Position): boolean => {
+  //   const xOverlap =
+  //     win1.x < win2.x + win2.width && win1.x + win1.width > win2.x;
+  //   const yOverlap =
+  //     win1.y < win2.y + win2.height && win1.y + win1.height > win2.y;
+  //   return xOverlap && yOverlap;
+  // };
 
   return (
     <>
@@ -49,26 +49,16 @@ const SphereDisplay: React.FC<ISphereDisplay> = ({
         links={otherWindows.map((win) => {
           const direction = calculateDirection(position, win.position);
           const distance = calculateDistance(position, win.position);
-
           return {
             id: `${position.x}-${position.y}-${win.position.x}-${win.position.y}`,
             length: distance,
             angle: direction,
             colors: [myWindow.color, win.color],
+            sphereSize: win.position.width || 10,
           };
         })}
+        size={myWindow.position.width / 5}
       />
-      {/* {otherWindows.map((win) => (
-        <>
-          {isOverlapping(win.position, myWindow.position) && (
-            <Sphere
-              position={win.position}
-              color={win.color}
-              lines={3}
-            ></Sphere>
-          )}
-        </>
-      ))} */}
     </>
   );
 };

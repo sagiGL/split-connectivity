@@ -48,14 +48,16 @@ a {
 
 button {
   @include flex-center;
-  background: $primary;
-  color: #fff;
-  border: none;
+  background-color: transparent;
+  border: solid 1px teal;
+  color: teal;
   padding: 0.5rem 1rem;
+  border-radius: 5px;
   cursor: pointer;
-
+  transition: all 0.3s ease;
   &:hover {
-    background: $secondary;
+    background-color: #068989;
+    color: white;
   }
 }
 

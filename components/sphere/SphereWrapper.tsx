@@ -2,13 +2,13 @@ import { keyframes, styled } from 'styled-components';
 
 export const SphereWrapper = styled.div<{
   position: { x: number; y: number; width: number; height: number };
-  size: string;
+  size: number;
   color: string;
 }>`
   position: absolute; /* Position fixed for centering relative to the viewport */
   top: 50%;
   left: 50%;
-  width: ${(props) => props.size};
+  width: ${(props) => props.size + 'px'};
   aspect-ratio: 1/1;
   transform: translate(-50%, -50%);
 
