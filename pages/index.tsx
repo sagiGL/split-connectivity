@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
 
 import '../styles/globals.scss';
-import Container from '@/components/Container';
-import SphereDisplay from '@/components/sphere/SphereDisplay';
-import { StickyButton } from '@/components/NewWindowButton';
+import Container from '../components/Container';
+import SphereDisplay from '../components/sphere/SphereDisplay';
+import { StickyButton } from '../components/NewWindowButton';
 
 interface Position {
   x: number;

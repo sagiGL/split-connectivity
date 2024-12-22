@@ -1,4 +1,4 @@
-import { Position } from '@/types/Windows.type';
+import { Position } from '../../types/Windows.type';
 import React, { useCallback } from 'react';
 import { Link } from './Link';
 import { SphereWrapper } from './SphereWrapper';

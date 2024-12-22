@@ -1,5 +1,5 @@
 import React from 'react';
-import { Position, WindowData } from '@/types/Windows.type';
+import { Position, WindowData } from '../../types/Windows.type';
 import Sphere from './Sphere';
 
 interface ISphereDisplay {
