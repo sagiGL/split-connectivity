@@ -78,42 +78,42 @@ export default function Home() {
       }
     }, 100);
 
-    // // Move the window around the screen
-    // let x = window.screenX;
-    // let y = window.screenY;
-    // let directionX = 1;
-    // let directionY = 1;
-    // const step = 500;
-    // const moveInterval = 1000; // Move every 100ms
+    // Move the window around the screen
+    let x = window.screenX;
+    let y = window.screenY;
+    let directionX = 1;
+    let directionY = 1;
+    const step = 500;
+    const moveInterval = 1000; // Move every 100ms
 
-    // const moveWindow = () => {
-    //   const screenWidth = window.screen.availWidth;
-    //   const screenHeight = window.screen.availHeight;
+    const moveWindow = () => {
+      const screenWidth = window.screen.availWidth;
+      const screenHeight = window.screen.availHeight;
 
-    //   x += step * directionX;
-    //   y += step * directionY;
+      x += step * directionX;
+      y += step * directionY;
 
-    //   if (x <= 0 || x + window.outerWidth >= screenWidth) {
-    //     directionX *= -1;
-    //   }
-    //   if (y <= 0 || y + window.outerHeight >= screenHeight) {
-    //     directionY *= -1;
-    //   }
+      if (x <= 0 || x + window.outerWidth >= screenWidth) {
+        directionX *= -1;
+      }
+      if (y <= 0 || y + window.outerHeight >= screenHeight) {
+        directionY *= -1;
+      }
 
-    //   window.moveTo(x, y);
-    // };
+      window.moveTo(x, y);
+    };
 
-    // let moveWindowInterval: NodeJS.Timeout | null = null;
-    // if (isMoving) {
-    //   moveWindowInterval = setInterval(moveWindow, moveInterval);
-    // }
+    let moveWindowInterval: NodeJS.Timeout | null = null;
+    if (isMoving) {
+      moveWindowInterval = setInterval(moveWindow, moveInterval);
+    }
 
     // Cleanup
     return () => {
       clearInterval(pollPosition);
-      // if (moveWindowInterval) {
-      //   clearInterval(moveWindowInterval);
-      // }
+      if (moveWindowInterval) {
+        clearInterval(moveWindowInterval);
+      }
       socket.disconnect();
     };
   }, []);
@@ -121,9 +121,9 @@ export default function Home() {
   const openNewWindow = () => {
     window.open(window.location.href, '_blank', 'width=600,height=400');
   };
-  // const toggleMovement = () => {
-  //   setIsMoving((prev) => !prev);
-  // };
+  const toggleMovement = () => {
+    setIsMoving((prev) => !prev);
+  };
 
   return (
     <Container>

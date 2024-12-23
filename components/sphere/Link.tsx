@@ -1,4 +1,9 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const rotate = keyframes`
+  from { transform: translate(50%, -50%) rotateY(0deg) rotateX(0deg) rotateZ(0deg); }
+  to { transform: translate(50%, -50%) rotateY(360deg) rotateX(360deg) rotateZ(360deg); }
+`;
 
 export interface ILinkData {
   id?: string;
@@ -49,5 +54,6 @@ export const Link = styled.div<ILinkData>`
     border: 1px solid ${(props) => props.colors[1]};
     border-radius: 50%;
     aspect-ratio: 1;
+    animation: rotate 8s linear infinite;
   }
 `;

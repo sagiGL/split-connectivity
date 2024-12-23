@@ -45,7 +45,7 @@ const SphereDisplay: React.FC<ISphereDisplay> = ({
       <Sphere
         position={myWindow.position}
         color={myWindow.color}
-        lines={3}
+        lines={6}
         links={otherWindows.map((win) => {
           const direction = calculateDirection(position, win.position);
           const distance = calculateDistance(position, win.position);
